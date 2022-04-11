@@ -9,6 +9,7 @@ const INITIAL_STATE = {
 };
 
 const currencies = (state = INITIAL_STATE, action) => {
+  console.log(action);
   switch (action.type) {
   case CURRENCIES_OK:
     return {

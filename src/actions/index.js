@@ -21,8 +21,8 @@ export function fetchCoin() {
     dispatch(currenciesOk());
     const fetchCoi = await fetch('https://economia.awesomeapi.com.br/json/all');
     const response = await fetchCoi.json();
-    console.log(response);
     const filteredTwo = Object.keys(response).filter((item) => item !== 'USDT');
+    console.log(filteredTwo);
     dispatch(currenciesOk(filteredTwo));
     dispatch(coinCreate(response));
   };
