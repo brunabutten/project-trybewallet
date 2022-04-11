@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
-import { fetchCoin } from '../actions/index';
+import { fetchCoin } from '../actions';
 import FormExpenses from '../components/FormExpenses';
 import Tabela from '../components/Tabela';
 

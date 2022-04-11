@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 
 class Header extends Component {
   render() {
-    const { email, expense } = this.props;
+    const { email, expenses } = this.props;
     const totalSum = (acc, currency) => (
       acc + (currency.value * currency.rateCoinOk[currency.currency].ask)
     );
-    const final = expense.reduce(totalSum, 0);
+    const final = expenses.reduce(totalSum, 0);
     return (
       <>
         <div>
@@ -32,12 +32,12 @@ class Header extends Component {
 }
 const mapStateToProps = (state) => ({
   email: state.user.email,
-  expense: state.wallet.expenses,
+  expenses: state.wallet.expenses,
 });
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
-  expense: PropTypes.arrayOf().isRequired,
+  expenses: PropTypes.arrayOf().isRequired,
 };
 
 export default connect(mapStateToProps)(Header);

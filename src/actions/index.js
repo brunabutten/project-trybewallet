@@ -11,9 +11,10 @@ export const currenciesOk = (currenciesArr) => ({
   payload: currenciesArr,
 });
 
-export const coinCreate = (rateCoin) => ({
+export const coinCreate = (rateCoinOk) => ({
   type: EXCHANGE_DEF,
-  payload: rateCoin,
+  /*   payload: rateCoin, */
+  payload: rateCoinOk,
 });
 
 export function fetchCoin() {
@@ -21,9 +22,9 @@ export function fetchCoin() {
     dispatch(currenciesOk());
     const fetchCoi = await fetch('https://economia.awesomeapi.com.br/json/all');
     const response = await fetchCoi.json();
-    const filteredTwo = Object.keys(response).filter((item) => item !== 'USDT');
-    console.log(filteredTwo);
-    dispatch(currenciesOk(filteredTwo));
+    const filterTwo = Object.keys(response).filter((item) => item !== 'USDT');
+    console.log(filterTwo);
+    dispatch(currenciesOk(filterTwo));
     dispatch(coinCreate(response));
   };
 }

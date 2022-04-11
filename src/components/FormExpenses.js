@@ -6,15 +6,22 @@ import { expenseCreate, fetchCoin } from '../actions';
 class FormExpenses extends Component {
   state = {
     value: '',
+    /* value: 0, */
     description: '',
     currency: 'USD',
     methodOk: '',
     tagOk: '',
   };
 
-  handleChange = (target) => {
+  /*   handleChange = (target) => {
     this.setState({
       [target.id]: target.value,
+    });
+  }; */
+
+  handleChange = ({ target }) => {
+    this.setState({
+      [target.name]: target.value,
     });
   };
 
@@ -38,6 +45,7 @@ class FormExpenses extends Component {
     });
     this.setState({
       value: '',
+      /* value: 0, */
       description: '',
     });
   };
@@ -51,27 +59,33 @@ class FormExpenses extends Component {
           Valor:
           <input
             id="value"
+            name="value"
             data-testid="value-input"
             value={ value }
-            onChange={ ({ target }) => this.handleChange(target) }
+            /* onChange={ ({ target }) => this.handleChange(target) } */
+            onChange={ this.handleChange }
           />
         </label>
         <label htmlFor="description">
-          Gastos:
+          Descrição dos gastos:
           <input
             id="description"
+            name="description"
+            type="text"
             value={ description }
             data-testid="description-input"
-            onChange={ ({ target }) => this.handleChange(target) }
+            /* onChange={ ({ target }) => this.handleChange(target) } */
+            onChange={ this.handleChange }
           />
         </label>
         <label htmlFor="currency">
           Moeda:
           <select
             id="currency"
+            name="currency"
             data-testid="currency-input"
-            name="moeda"
-            onChange={ ({ target }) => this.handleChange(target) }
+            /* onChange={ ({ target }) => this.handleChange(target) } */
+            onChange={ this.handleChange }
           >
             {currencies && currencies.map((currency, index) => (
               <option key={ index } value={ currency }>
@@ -84,9 +98,10 @@ class FormExpenses extends Component {
           Método de Pagamento:
           <select
             id="methodOk"
+            name="methodOk"
             data-testid="method-input"
-            name="Pagamento"
-            onChange={ ({ target }) => this.handleChange(target) }
+            /* onChange={ ({ target }) => this.handleChange(target) } */
+            onChange={ this.handleChange }
           >
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de débito">Cartão de débito</option>
@@ -94,12 +109,13 @@ class FormExpenses extends Component {
           </select>
         </label>
         <label htmlFor="tagOk">
-          Despesa:
+          Categoria:
           <select
             id="tagOk"
             data-testid="tag-input"
-            name="Categorias"
-            onChange={ ({ target }) => this.handleChange(target) }
+            name="tagOk"
+            /* onChange={ ({ target }) => this.handleChange(target) } */
+            onChange={ this.handleChange }
           >
             <option value="Alimentação">Alimentação</option>
             <option value="Lazer">Lazer</option>
@@ -130,7 +146,7 @@ FormExpenses.propTypes = {
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   expenses: state.wallet.expenses,
-  rateCoinOk: state.wallet.exchangeRates,
+  rateCoinOk: state.wallet.rateCoinOk,
 });
 
 const mapDispatchToProps = (dispatch) => ({

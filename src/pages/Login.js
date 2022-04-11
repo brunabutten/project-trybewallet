@@ -49,7 +49,7 @@ class Login extends React.Component {
           type="password"
           name="password"
           data-testid="password-input"
-          placeholder="senha"
+          placeholder="password"
           onChange={ ({ target }) => this.handleChange(target) }
         />
         <Link to="/carteira">
