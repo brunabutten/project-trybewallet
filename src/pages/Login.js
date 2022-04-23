@@ -1,10 +1,12 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+/* import PropTypes from 'prop-types'; */
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { loginUser } from '../actions';
+/* import { Link } from 'react-router-dom';
+import { connect } from 'react-redux'; */
 
-class Login extends React.Component {
+/* class Login extends React.Component {
   state = {
     email: '',
     password: '',
@@ -74,4 +76,70 @@ const mapDispatchToProps = (dispatch) => ({
   userOk: (email) => dispatch(loginUser(email)),
 });
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login); */
+
+function loginVal(email, password, btnDisabled) {
+  const MIN_PASSWORD_LENGTH = 5;
+  const emailVal = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/.test(email);
+  const passwordVal = password.length > MIN_PASSWORD_LENGTH;
+  const inputVal = [emailVal, passwordVal];
+  const valido = inputVal.every((input) => input);
+  if (valido) {
+    btnDisabled(false);
+  } else {
+    btnDisabled(true);
+  }
+}
+
+function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isDisabled, setIsDisabled] = useState(true);
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  useEffect(() => { loginVal(email, password, setIsDisabled); }, [email, password]);
+
+  const handleClick = () => {
+    dispatch(loginUser(email));
+    history.push('/carteira');
+  };
+
+  return (
+    <div className="container-login">
+      <div className="Login">
+        <h2 className="text-login">Login</h2>
+        <div className="container-input-login">
+          <input
+            className="input-login"
+            data-testid="email-input"
+            type="text"
+            name="email"
+            value={ email }
+            placeholder="Email"
+            onChange={ ({ target }) => setEmail(target.value) }
+          />
+          <input
+            className="input-login"
+            data-testid="password-input"
+            type="password"
+            name="password"
+            value={ password }
+            placeholder="Senha"
+            onChange={ ({ target }) => setPassword(target.value) }
+          />
+        </div>
+        <button
+          className="button-login"
+          type="button"
+          disabled={ isDisabled }
+          onClick={ () => handleClick() }
+        >
+          Entrar
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export default Login;

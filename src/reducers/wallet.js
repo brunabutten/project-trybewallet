@@ -1,32 +1,39 @@
-export const CURRENCIES_OK = 'CURRENCIES_OK';
+/* export const CURRENCIES_OK = 'CURRENCIES_OK';
 export const EXPENSE_DEF = 'EXPENSE_DEF';
-export const EXCHANGE_DEF = 'EXCHANGE_DEF';
+export const EXCHANGE_DEF = 'EXCHANGE_DEF'; */
+import {
+  ADICMOEDA,
+  ADICDESP,
+  DELETADESP,
+} from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
-  rateCoinOk: {},
+  /* rateCoinOk: {}, */
 };
 
-const currencies = (state = INITIAL_STATE, action) => {
-  console.log(action);
-  switch (action.type) {
-  case CURRENCIES_OK:
+/* const currencies = (state = INITIAL_STATE, action) => { */
+function wallet(state = INITIAL_STATE, { type, value }) {
+  switch (type) {
+  case ADICMOEDA:
     return {
       ...state,
-      currencies: action.payload,
+      currencies: Object.entries(value)
+        .map((item) => item[0])
+        .filter((item) => item !== 'USDT'),
     };
-  case EXPENSE_DEF:
+  case ADICDESP:
     return {
       ...state,
-      expenses: [...state.expenses, action.payload],
+      expenses: [...state.expenses, value],
     };
-  case EXCHANGE_DEF:
+  case DELETADESP:
     return {
       ...state,
-      rateCoinOk: action.payload,
+      expenses: state.expenses.filter((item) => item.id !== value),
     };
   default: return state;
   }
-};
-export default currencies;
+}
+export default wallet;
