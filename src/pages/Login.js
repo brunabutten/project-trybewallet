@@ -1,8 +1,4 @@
 /* import PropTypes from 'prop-types'; */
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { loginUser } from '../actions';
 /* import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'; */
 
@@ -78,12 +74,17 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(null, mapDispatchToProps)(Login); */
 
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { loginUser } from '../actions';
+
 function loginVal(email, password, btnDisabled) {
   const MIN_PASSWORD_LENGTH = 5;
   const emailVal = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/.test(email);
   const passwordVal = password.length > MIN_PASSWORD_LENGTH;
-  const inputVal = [emailVal, passwordVal];
-  const valido = inputVal.every((input) => input);
+  const inputsVal = [emailVal, passwordVal];
+  const valido = inputsVal.every((input) => input);
   if (valido) {
     btnDisabled(false);
   } else {

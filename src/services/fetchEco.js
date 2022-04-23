@@ -1,7 +1,7 @@
 const fetchNovo = async () => {
   const response = await fetch('https://economia.awesomeapi.com.br/json/all');
-  const payload = await response.json();
-  return payload;
+  const data = await response.json();
+  return data;
 };
 
 export default fetchNovo;

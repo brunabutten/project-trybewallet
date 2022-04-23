@@ -1,9 +1,9 @@
 import fetchNovo from '../services/fetchEco';
 
-export const ADICMOEDA = 'ADICMOEDA';
-export const DELETADESP = 'DELETADESP';
-export const ADICDESP = 'ADICDESP';
 export const LOGIN = 'LOGIN';
+export const ADICMOEDA = 'ADICMOEDA';
+export const ADICDESP = 'ADICDESP';
+export const DELETADESP = 'DELETADESP';
 
 export const loginUser = (value) => ({
   type: LOGIN,
@@ -15,9 +15,9 @@ export const currenciesOk = (value) => ({
   value,
 });
 
-export const adicDespesa = (value, payload) => ({
+export const adicDespesa = (value, data) => ({
   type: ADICDESP,
-  value: { ...value, rateCoin: { ...payload } },
+  value: { ...value, exchangeRates: { ...data } },
 });
 
 export const deletaDespesa = (value) => ({
@@ -30,6 +30,6 @@ export const coinFetch = () => async (dispatch) => {
 };
 
 export const despFetch = (value) => async (dispatch) => {
-  const resp = await fetchNovo();
-  dispatch(adicDespesa(value, resp));
+  const response = await fetchNovo();
+  dispatch(adicDespesa(value, response));
 };
